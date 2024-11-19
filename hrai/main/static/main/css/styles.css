@@ -172,3 +172,75 @@ button[type="submit"] { /* General button styles */
     width: 200px;
     text-align: left;
 }
+}
+
+.resume-box {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.resume-box label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.resume-box select,
+.resume-box input[type="text"],
+.resume-box input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+.resume-box select[multiple] {
+    height: 100px;
+}
+
+#workExperience {
+    margin-top: 20px;
+    border: 1px dashed #ccc;
+    padding: 10px;
+}
+
+.workExperienceItem {
+    margin-bottom: 10px;
+}
+
+#addWorkExperience {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#totalExperience {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+#salaryError {
+    margin-top: 5px;
+    color: red;
+}
+
+
+/* Адаптивные стили (пример) */
+@media (max-width: 768px) {
+    .resume-box select,
+    .resume-box input {
+        width: 100%;
+    }
+}
+#institution-container {
+    margin-top: 20px;
+    border: 1px dashed #ccc;
+    padding: 10px;
+}
