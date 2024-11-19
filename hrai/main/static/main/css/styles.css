@@ -1,0 +1,174 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    min-height: 100vh;
+    background: repeating-linear-gradient(to right, #6755f1, #e6950a);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align items to the top */
+}
+
+.container {
+    background: white;
+    border-radius: 30px;
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto; /* Center horizontally and add top/bottom margin */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    box-sizing: border-box;  /* Include padding in width calculation */
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    width: 100%; /* Занимает всю ширину */
+    box-sizing: border-box;
+    position: relative;
+}
+
+.logo {
+    font-family: 'Kufam', sans-serif;
+    font-size: 2em;
+    color: #e6fb93;
+    text-decoration: none;
+}
+
+nav {
+    display: flex;
+    justify-content: center; /* Центрируем элементы внутри nav */
+    width: 100%; /* Ширина на всю страницу */
+    background-color: #f0f0f0; /* Или любой другой цвет фона */
+    padding: 10px 0; /* Добавь отступы сверху/снизу */
+    box-sizing: border-box; /* Чтобы padding не увеличивал общую ширину */
+
+}
+
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown a { /* Style for dropdown trigger */
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    padding: 8px 15px;
+    border-radius: 5px;
+    background-color: #f0f0f0; /* Light gray background */
+    cursor: pointer;
+
+
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block; /* Make links stack vertically */
+
+}
+
+
+
+.dropdown:hover .dropdown-content {
+    display: block;
+
+}
+
+.user-info {
+    text-align: right;
+}
+
+.username, .logout-link {
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: middle;  /* Vertically align with icon */
+    color: black;
+}
+
+.logout-link {  /* Style the heart icon link */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+main {
+    text-align: center; /* Align content to the left */
+    margin-top: 20px; /* Add margin to separate from header */
+
+}
+
+h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.search-box {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+
+}
+
+
+/* Input fields */
+.search-box input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+
+}
+
+
+button[type="submit"] { /* General button styles */
+    background-color: #e6950a;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 0;
+    cursor: pointer;
+    border-radius: 5px; /* Slightly rounded corners */
+    font-family: 'Montserrat', sans-serif;
+}
+.register-button {
+    background-color: #e6950a;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 0;
+    cursor: pointer;
+    border-radius: 5px; /* Slightly rounded corners */
+    font-family: 'Montserrat', sans-serif;
+}
+
+.form {
+    font-family: 'Montserrat', sans-serif;
+    margin: auto;
+    width: 200px;
+    text-align: left;
+}

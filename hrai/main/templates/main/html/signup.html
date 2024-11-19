@@ -1,0 +1,18 @@
+{% extends 'main/html/base.html' %}
+{% load static %}
+
+
+{% block main_content %}
+<div class="container2">
+
+    <form method="post">
+        {% csrf_token %}
+        <table>
+            {{ form1.as_table }}
+        </table>
+        <div class="button-container">
+            <button type="submit">Зарегистрироваться</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
