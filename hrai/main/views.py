@@ -1,6 +1,10 @@
+import json
+
+from django.forms import formset_factory
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
-from .forms import SignUpForm, LoginForm
+from .forms import *
 
 
 def main(request):
@@ -111,9 +115,26 @@ def auth_home(request):
         "Российская академия народного хозяйства и государственной службы при Президенте Российской Федерации (РАНХиГС)",
     ]
 
-    context = {'skills_data': skills_data, 'job_titles': job_titles, 'institutions': institutions}
+    # context = {'skills_data': skills_data, 'job_titles': job_titles, 'institutions': institutions}
+    #
+    # return render(request, 'main/html/auth_home.html', context)
+    if request.method == 'POST':
+        form = ResumeForm(request.POST)
+        if form.is_valid():
+            # Обработка данных формы (сохранение в базу данных)
+            print(form.cleaned_data)
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False, 'errors': form.errors})
+    else:
+        form = ResumeForm()
+        form.fields['position'].choices = [(title, title) for title in job_titles]
 
-    return render(request, 'main/html/auth_home.html', context)
+        return render(request, 'main/html/auth_home.html', {
+            'form': form,
+            'job_titles': job_titles,  # Передаем данные в шаблон
+            'skills_data': json.dumps(skills_data),  # Преобразуем в JSON для использования в JavaScript
+        })
 
 
 def signup(request):
