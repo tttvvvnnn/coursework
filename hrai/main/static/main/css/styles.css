@@ -109,7 +109,7 @@ nav {
 main {
     text-align: center; /* Align content to the left */
     margin-top: 20px; /* Add margin to separate from header */
-
+    font-family: 'Montserrat', sans-serif;
 }
 
 h2 {
@@ -185,6 +185,7 @@ button[type="submit"] { /* General button styles */
 .resume-box label {
     display: block;
     margin-bottom: 5px;
+    text-align: left;
 }
 
 .resume-box select,
@@ -219,6 +220,7 @@ button[type="submit"] { /* General button styles */
     border: none;
     border-radius: 3px;
     cursor: pointer;
+
 }
 
 #totalExperience {

@@ -13,7 +13,7 @@
         {% endblock %}
         {% block main_content %}
         <h2>Создать резюме</h2>
-        <form method="get" > </form>  </main>
+        <form method="get" >
                 <div class="resume-box">
                     <input type="text" id="fio" name="fio" placeholder="ФИО">
                     <select id="jobTitle" name="jobTitle">
@@ -52,7 +52,7 @@
                           <option value="Полный день">Полный день</option>
                           <option value="Сменный график">Сменный график</option>
                           <option value="Вахтовый метод">Вахтовый метод</option>
-                          </select>
+                    </select>
                     <div id="workExperience">
                         <div class="workExperienceItem">
                         <label for="position_1">Должность:</label>
@@ -87,6 +87,7 @@
                           </select>
                     </div>
                 </div>
+        </form>
                 <script>
                     const addWorkExperienceButton = document.getElementById("addWorkExperience");
                     const workExperienceContainer = document.getElementById("workExperience");
