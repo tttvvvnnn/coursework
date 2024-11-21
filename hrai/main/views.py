@@ -10,10 +10,10 @@ from .models import Resume, ResumeSkill, Skill
 
 
 def main(request):
-    return render(request, 'main/html/main.html')
+    return render(request, "main/main.html")
 
 
-def auth_home(request):
+def create_resume(request):
     job_titles = [
         [
             ["Программист", "Программист"],
@@ -119,9 +119,6 @@ def auth_home(request):
         "Российская академия народного хозяйства и государственной службы при Президенте Российской Федерации (РАНХиГС)",
     ]
 
-    # context = {'skills_data': skills_data, 'job_titles': job_titles, 'institutions': institutions}
-    #
-    # return render(request, 'main/html/auth_home.html', context)
     if request.method == 'POST':
         form = ResumeForm(request.POST)
         if form.is_valid():
@@ -147,14 +144,14 @@ def auth_home(request):
                 )
                 res_skill.save()
             messages.success(request, 'Резюме успешно добавлено!')
-            return render(request, 'main/html/auth_home.html', {'form' : form})
+            return render(request, 'main/create_resume.html', {'form': form})
         else:
             return JsonResponse({'no success': False, 'errors': form.errors})
     else:
         form = ResumeForm()
         form.fields['position'].choices = [(title, title) for title in job_titles]
 
-        return render(request, 'main/html/auth_home.html', {
+        return render(request, 'main/create_resume.html', {
             'form': form,
             'job_titles': job_titles,  # Передаем данные в шаблон
             'skills_data': json.dumps(skills_data, ensure_ascii=False),
@@ -168,10 +165,10 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             login(request, user)  # Use the renamed function
-            return redirect("{% url 'auth_home' %}")  # Redirect to your desired URL after signup
+            return redirect("{% url 'create_resume' %}")  # Redirect to your desired URL after signup
     else:
         form = SignUpForm()
-    return render(request, 'main/html/signup.html', {'form1': form})  # Correct template context
+    return render(request, 'main/signup.html', {'form1': form})  # Correct template context
 
 
 def login_view(request):
@@ -181,11 +178,25 @@ def login_view(request):
             user = form.get_user()
             if user is not None:
                 login(request, user)
-                return redirect('auth_home')
+                return redirect('create_resume')
             else:
-                return render(request, 'main/html/login.html', {'form2': form, 'error': 'Неверный логин или пароль'})
+                return render(request, 'login', {'form2': form, 'error': 'Неверный логин или пароль'})
         else:
-            return render(request, 'main/html/login.html', {'form2': form, 'errors': form.errors})
+            return render(request, 'login', {'form2': form, 'errors': form.errors})
     else:
         form = LoginForm()
-    return render(request, 'main/html/login.html', {'form2': form})
+    return render(request, 'login', {'form2': form})
+
+
+def list_resume(request):
+    resumes = Resume.objects.all()
+    print(resumes)
+    return render(request, 'main/list_resume.html', {'resumes': resumes})
+
+
+def create_vacancy(request):
+    return render(request, 'main/create_vacancy.html')
+
+
+def list_vacancy(request):
+    return render(request, 'main/list_vacancy.html')

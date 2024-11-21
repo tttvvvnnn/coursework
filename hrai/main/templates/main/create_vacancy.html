@@ -1,0 +1,29 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}HRAI{% endblock %}
+
+{% block header-content %}
+    <nav>
+        <div class="dropdown">
+            <a href="{% url 'create_resume' %}" id="create-resume-link">Добавить резюме</a>
+            <a href="{% url 'list_resume' %}" id="list-resume-link">Список резюме</a>
+            <a href="{% url 'create_vacancy' %}" id="create-vacancy-link">Создать вакансию</a>
+            <a href="{% url 'list_vacancy' %}" id="list-vacancy-link">Список вакансий</a>
+        </div>
+    </nav>
+    <script>
+        const links = document.querySelectorAll('.dropdown a');
+        const currentPath = window.location.pathname;
+
+        links.forEach(link => {
+            if (link.href.endsWith(currentPath)) {
+                link.classList.add('active');
+            }
+        });
+    </script>
+{% endblock %}
+
+{% block main_content %}
+
+{% endblock %}

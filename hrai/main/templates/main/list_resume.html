@@ -1,0 +1,42 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}HRAI{% endblock %}
+
+{% block header-content %}
+<nav>
+    <div class="dropdown">
+        <a href="{% url 'create_resume' %}" id="create-resume-link">Добавить резюме</a>
+        <a href="{% url 'list_resume' %}" id="list-resume-link">Список резюме</a>
+        <a href="{% url 'create_vacancy' %}" id="create-vacancy-link">Создать вакансию</a>
+        <a href="{% url 'list_vacancy' %}" id="list-vacancy-link">Список вакансий</a>
+    </div>
+</nav>
+<script>
+    const links = document.querySelectorAll('.dropdown a');
+    const currentPath = window.location.pathname;
+
+    links.forEach(link => {
+        if (link.href.endsWith(currentPath)) {
+            link.classList.add('active');
+        }
+    });
+</script>
+{% endblock %}
+
+{% block main_content %}
+<h1>Список резюме</h1>
+<div class="resume-container">
+    <ul>
+        {% for resume in resumes %}
+        <li>
+            ФИО: -{{ resume.full_name }} <br> Должность: {{ resume.position }} <br> Тип занятости: {{ resume.employment_type }} <br>
+            Опыт работы: {{ resume.work_experience }} лет <br>
+            {% for skill in resume.skills.all %}
+            "-" {{ skill.name }}
+            {% endfor %}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

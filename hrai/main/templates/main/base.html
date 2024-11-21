@@ -1,4 +1,3 @@
-{% load crispy_forms_tags %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="ru">
@@ -17,17 +16,19 @@
 <body>
     <div class="container">  <!-- Общий контейнер -->
             <header>
-                <a href="{% url 'home' %}" class="logo">HRAI</a>
-                <div class="user-info">
-                    {% if user.is_authenticated %}
-                        <p class="username">{{ user.username }}</p>
-                        <form id="logout-form" method="post" action="{% url 'logout' %}">
-                            {% csrf_token %}
-                        </form>
-                        <a href="javascript:void(0)" class="logout-link" onclick="document.getElementById('logout-form').submit();">Выход</a>
-                    {% else %}
-                        <a href="{% url 'login' %}" class="login-link">Войти</a>
-                    {% endif %}
+                <div class="logo_user-info">
+                    <a href="{% url 'home' %}" class="logo">HRAI</a>
+                    <div class="user-info">
+                        {% if user.is_authenticated %}
+                            <p class="username">{{ user.username }}</p>
+                            <form id="logout-form" method="post" action="{% url 'logout' %}">
+                                {% csrf_token %}
+                            </form>
+                            <a href="javascript:void(0)" class="logout-link" onclick="document.getElementById('logout-form').submit();">Выход</a>
+                        {% else %}
+                            <a href="{% url 'login' %}" class="login-link">Войти</a>
+                        {% endif %}
+                    </div>
                 </div>
                 {% block header-content %}
                 {% endblock %}

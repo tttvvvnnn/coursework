@@ -32,17 +32,22 @@ header {
 .logo {
     font-family: 'Kufam', sans-serif;
     font-size: 2em;
-    color: #e6fb93;
+    color: #D3F843;
     text-decoration: none;
+    padding-top: 8px;
+    font-weight: 600;
+
 }
 
 nav {
     display: flex;
     justify-content: center; /* Центрируем элементы внутри nav */
     width: 100%; /* Ширина на всю страницу */
-    background-color: #f0f0f0; /* Или любой другой цвет фона */
+    background-color: #E5950A; /* Или любой другой цвет фона */
     padding: 10px 0; /* Добавь отступы сверху/снизу */
     box-sizing: border-box; /* Чтобы padding не увеличивал общую ширину */
+    border-radius: 10px;
+    text-align: center;
 
 }
 
@@ -54,55 +59,48 @@ nav {
 
 .dropdown a { /* Style for dropdown trigger */
     text-decoration: none;
-    color: #333;
+    color: white;
     font-weight: bold;
     padding: 8px 15px;
     border-radius: 5px;
-    background-color: #f0f0f0; /* Light gray background */
+    background-color: #E5950A; /* Light gray background */
     cursor: pointer;
 
 
 }
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block; /* Make links stack vertically */
-
-}
-
-
+.dropdown a.active {
+        /* Стиль активной ссылки */
+        background-color: #D88A0A;
+        font-weight: bold;
+    }
 
 .dropdown:hover .dropdown-content {
     display: block;
 
 }
-
+.logo_user-info {
+    display:flex;
+}
 .user-info {
     text-align: right;
+    width: 100%;
 }
 
 .username, .logout-link {
     display: inline-block;
     margin-left: 10px;
     vertical-align: middle;  /* Vertically align with icon */
-    color: black;
+    color: #6755F1;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2em;
+    font-weight: bold;
+
 }
 
 .logout-link {  /* Style the heart icon link */
     text-decoration: none;
     cursor: pointer;
+    font-weight: bold;
 }
 
 
@@ -115,6 +113,7 @@ main {
 h2 {
     font-size: 1.5em;
     margin-bottom: 10px;
+    font-weight: bold;
 }
 
 .search-box {
@@ -180,6 +179,7 @@ button[type="submit"] { /* General button styles */
     margin-bottom: 20px;
     border-radius: 5px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    width:100px;
 }
 
 .resume-box label {
@@ -203,43 +203,6 @@ button[type="submit"] { /* General button styles */
     height: 100px;
 }
 
-#workExperience {
-    margin-top: 20px;
-    border: 1px dashed #ccc;
-    padding: 10px;
-}
-
-.workExperienceItem {
-    margin-bottom: 10px;
-}
-
-#addWorkExperience {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-
-}
-
-#totalExperience {
-    font-weight: bold;
-    margin-top: 10px;
-}
-
-#salaryError {
-    margin-top: 5px;
-    color: red;
-}
-
-
-/* Адаптивные стили (пример) */
-@media (max-width: 768px) {
-    .resume-box select,
-    .resume-box input {
-        width: 100%;
-    }
 }
 .messages {
     list-style-type: none;
@@ -260,4 +223,38 @@ button[type="submit"] { /* General button styles */
     border: 1px solid red;
     padding: 10px;
     margin-bottom: 10px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+      display: flex;
+      margin: auto;
+      margin-bottom: 15px;
+      border-bottom: 1px solid #eee; /* Разделительная линия */
+      padding-bottom: 10px;
+      background-color: #E5950A;
+      width: 250px;
+      border-radius: 10px;
+
+}
+
+li:last-child {
+  border-bottom: none; /* Убираем линию под последним элементом */
+}
+
+li strong { /* Выделяем ФИО жирным */
+  font-weight: bold;
+}
+
+li ul {
+  padding-left: 20px;
+  list-style: disc; /* Стандартные маркеры для вложенного списка */
+}
+resume-container {
+    background-color: #E5950A;
 }
