@@ -2,23 +2,62 @@
 {% load static %}
 {% block title %}HRAI{% endblock %}
 
-        {% block header-content %}
-        <nav>
-            <div class="dropdown">
-               <a >Добавить резюме</a>
-               <a >Создать вакансию</a>
-               <a >Аналитика</a>
-            </div>
-        </nav>
-        {% endblock %}
-        {% block main_content %}
-        <h1>Создание резюме</h1>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Создать</button>
-        </form>
+    {% block header-content %}
+    <nav>
+        <div class="dropdown">
+           <a >Добавить резюме</a>
+           <a >Создать вакансию</a>
+           <a >Аналитика</a>
+        </div>
+    </nav>
+    {% endblock %}
+    {% block main_content %}
+    <h2>Создать резюме</h2>
+    <form method="post" >
+        <div class="resume-box">
+        {% csrf_token %}
+        {{ form.full_name }}
+        {{ form.position }}
+        {{ form.skills }}
+        {{ form.salary }}
+        {{ form.employment_type }}
+        {{ form.work_experience }}
+        </div>
+        <button type="submit">Создать</button>
+    </form>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
 
 
-        {% endblock %}
+    <script>
+        const jobTitleSelect = document.getElementById("jobTitle");
+        const skillsSelect = document.getElementById("skills");
+        const skillsData = JSON.parse('{{ skills_data|safe }}');
+
+        jobTitleSelect.addEventListener("change", function() {
+            const selectedJob = this.value;
+            skillsSelect.innerHTML = ''; // Очищаем список навыков
+
+            if (selectedJob in skillsData) {
+                const jobSkills = skillsData[selectedJob];
+                jobSkills.forEach(skill => {
+                    const option = document.createElement("option");
+                    option.value = skill;
+                    option.text = skill;
+                    skillsSelect.appendChild(option);
+                });
+            }
+        });
+    </script>
+
+
+
+    {% endblock %}
+
+
 

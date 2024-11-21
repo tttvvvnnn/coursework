@@ -1,8 +1,13 @@
+import json
+
+from django.contrib import messages
+from django.forms import formset_factory
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from .forms import *
-from django.contrib import messages
-from django.http import HttpResponseRedirect
+from .models import Resume, ResumeSkill, Skill
+
 
 def main(request):
     return render(request, 'main/html/main.html')
@@ -10,26 +15,28 @@ def main(request):
 
 def auth_home(request):
     job_titles = [
-        "Программист",
-        "Менеджер проекта",
-        "Инженер-программист",
-        "Дизайнер UX/UI",
-        "Data Scientist",
-        "Аналитик данных",
-        "Тестировщик ПО",
-        "DevOps-инженер",
-        "Frontend-разработчик",
-        "Backend-разработчик",
-        "Fullstack-разработчик",
-        "Системный администратор",
-        "Специалист по кибербезопасности",
-        "Менеджер по продажам",
-        "Маркетолог",
-        "Бухгалтер",
-        "Юрист",
-        "HR-менеджер",
-        "Руководитель проекта",
-        "Архитектор ПО"
+        [
+            ["Программист", "Программист"],
+            ["Менеджер проекта", "Менеджер проекта"],
+            ["Инженер-программист", "Инженер-программист"],
+            ["Дизайнер UX/UI", "Дизайнер UX/UI"],
+            ["Data Scientist", "Data Scientist"],
+            ["Аналитик данных", "Аналитик данных"],
+            ["Тестировщик ПО", "Тестировщик ПО"],
+            ["DevOps-инженер", "DevOps-инженер"],
+            ["Frontend-разработчик", "Frontend-разработчик"],
+            ["Backend-разработчик", "Backend-разработчик"],
+            ["Fullstack-разработчик", "Fullstack-разработчик"],
+            ["Системный администратор", "Системный администратор"],
+            ["Специалист по кибербезопасности", "Специалист по кибербезопасности"],
+            ["Менеджер по продажам", "Менеджер по продажам"],
+            ["Маркетолог", "Маркетолог"],
+            ["Бухгалтер", "Бухгалтер"],
+            ["Юрист", "Юрист"],
+            ["HR-менеджер", "HR-менеджер"],
+            ["Руководитель проекта", "Руководитель проекта"],
+            ["Архитектор ПО", "Архитектор ПО"]
+        ]
     ]  # Ваш список должностей
 
     skills_data = {
@@ -112,23 +119,47 @@ def auth_home(request):
         "Российская академия народного хозяйства и государственной службы при Президенте Российской Федерации (РАНХиГС)",
     ]
 
-    skills_data = {  # Ваши данные о навыках (как и раньше)
-        "Программист": ["Python", "Java", ...],
-        # ...
-    }
+    # context = {'skills_data': skills_data, 'job_titles': job_titles, 'institutions': institutions}
+    #
+    # return render(request, 'main/html/auth_home.html', context)
     if request.method == 'POST':
-        form = ResumeForm(request.POST, skills_data=skills_data)
+        form = ResumeForm(request.POST)
         if form.is_valid():
-            form.save()
-            messages.success(request, "Резюме успешно создано!")
-            return HttpResponseRedirect('/success/')  # Перенаправление на страницу успеха
+            # Обработка данных формы (сохранение в базу данных)
+            print(form.cleaned_data)
+            resume = Resume(
+                full_name=form.cleaned_data['full_name'],
+                position=form.cleaned_data['position'],
+                salary=form.cleaned_data['salary'],
+                employment_type=form.cleaned_data['employment_type'],
+                work_experience=form.cleaned_data['work_experience']
+            )
+            resume.save()
+
+            for x in form.cleaned_data['skills']:
+                skill = Skill(
+                    name=x
+                )
+                skill.save()
+                res_skill = ResumeSkill(
+                    resume=resume,
+                    skill=skill
+                )
+                res_skill.save()
+            messages.success(request, 'Резюме успешно добавлено!')
+            return render(request, 'main/html/auth_home.html', {'form' : form})
+        else:
+            return JsonResponse({'no success': False, 'errors': form.errors})
     else:
-        form = ResumeForm(skills_data=skills_data)
-    return render(request, 'main/html/auth_home.html', {'form': form, 'skills_data': skills_data})
+        form = ResumeForm()
+        form.fields['position'].choices = [(title, title) for title in job_titles]
 
-
-def success_view(request):
-    return render(request, 'main/html/auth_home.html')
+        return render(request, 'main/html/auth_home.html', {
+            'form': form,
+            'job_titles': job_titles,  # Передаем данные в шаблон
+            'skills_data': json.dumps(skills_data, ensure_ascii=False),
+            # Преобразуем в JSON для использования в JavaScript
+        })
 
 
 def signup(request):
