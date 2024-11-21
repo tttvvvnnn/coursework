@@ -1,5 +1,6 @@
 import json
 
+from django.contrib import messages
 from django.forms import formset_factory
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
@@ -10,9 +11,6 @@ from .models import Resume, ResumeSkill, Skill
 
 def main(request):
     return render(request, 'main/html/main.html')
-
-
-
 
 
 def auth_home(request):
@@ -133,7 +131,8 @@ def auth_home(request):
                 full_name=form.cleaned_data['full_name'],
                 position=form.cleaned_data['position'],
                 salary=form.cleaned_data['salary'],
-                employment_type=form.cleaned_data['employment_type']
+                employment_type=form.cleaned_data['employment_type'],
+                work_experience=form.cleaned_data['work_experience']
             )
             resume.save()
 
@@ -147,8 +146,8 @@ def auth_home(request):
                     skill=skill
                 )
                 res_skill.save()
-
-            return JsonResponse({'success': True})
+            messages.success(request, 'Резюме успешно добавлено!')
+            return render(request, 'main/html/auth_home.html', {'form' : form})
         else:
             return JsonResponse({'no success': False, 'errors': form.errors})
     else:
@@ -158,7 +157,8 @@ def auth_home(request):
         return render(request, 'main/html/auth_home.html', {
             'form': form,
             'job_titles': job_titles,  # Передаем данные в шаблон
-            'skills_data': json.dumps(skills_data, ensure_ascii=False),  # Преобразуем в JSON для использования в JavaScript
+            'skills_data': json.dumps(skills_data, ensure_ascii=False),
+            # Преобразуем в JSON для использования в JavaScript
         })
 
 

@@ -241,8 +241,23 @@ button[type="submit"] { /* General button styles */
         width: 100%;
     }
 }
-#institution-container {
-    margin-top: 20px;
-    border: 1px dashed #ccc;
+.messages {
+    list-style-type: none;
+    padding: 0;
+}
+
+.messages .success {
+    color: green;
+    background-color: #eaffea;
+    border: 1px solid green;
     padding: 10px;
+    margin-bottom: 10px;
+}
+
+.messages .error {
+    color: red;
+    background-color: #ffecea;
+    border: 1px solid red;
+    padding: 10px;
+    margin-bottom: 10px;
 }

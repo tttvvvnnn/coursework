@@ -99,6 +99,9 @@ class ResumeForm(forms.Form):
     salary = forms.IntegerField(label='Зарплата', min_value=0,
                                 widget=forms.NumberInput(
                                     attrs={'type': 'number', 'min': '0', 'step': '1', 'placeholder': 'Зарплата'}))
+    work_experience = forms.IntegerField(label='Опыт работы', min_value=0, max_value=100,
+                                         widget=forms.NumberInput(attrs={'type': 'number', 'min': '0', 'step': '1',
+                                                                         'placeholder': 'Опыт работы(в годах)'}))
 
     employment_type = forms.ChoiceField(choices=[
         ('удаленная работа', 'Удаленная работа'),
@@ -106,6 +109,3 @@ class ResumeForm(forms.Form):
         ('частичная занятость', 'Частичная занятость'),
         ('проектная работа', 'Проектная работа'),
     ], label='Тип занятости', widget=forms.Select())
-
-
-

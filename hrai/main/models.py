@@ -38,6 +38,7 @@ class Resume(models.Model):
         ('проектная работа', 'Проектная работа'),
     ]
     employment_type = models.CharField(max_length=100, choices=EMPLOYMENT_TYPE_CHOICES, verbose_name='Тип занятости')
+    work_experience = models.IntegerField(verbose_name='Опыт работы', null=True, blank=True)
 
     def __str__(self):
         return self.full_name
