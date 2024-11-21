@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
-from .forms import SignUpForm, LoginForm
-
+from .forms import *
+from django.contrib import messages
+from django.http import HttpResponseRedirect
 
 def main(request):
     return render(request, 'main/html/main.html')
@@ -111,9 +112,23 @@ def auth_home(request):
         "Российская академия народного хозяйства и государственной службы при Президенте Российской Федерации (РАНХиГС)",
     ]
 
-    context = {'skills_data': skills_data, 'job_titles': job_titles, 'institutions': institutions}
+    skills_data = {  # Ваши данные о навыках (как и раньше)
+        "Программист": ["Python", "Java", ...],
+        # ...
+    }
+    if request.method == 'POST':
+        form = ResumeForm(request.POST, skills_data=skills_data)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Резюме успешно создано!")
+            return HttpResponseRedirect('/success/')  # Перенаправление на страницу успеха
+    else:
+        form = ResumeForm(skills_data=skills_data)
+    return render(request, 'main/html/auth_home.html', {'form': form, 'skills_data': skills_data})
 
-    return render(request, 'main/html/auth_home.html', context)
+
+def success_view(request):
+    return render(request, 'main/html/auth_home.html')
 
 
 def signup(request):
