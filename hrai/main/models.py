@@ -4,8 +4,31 @@ from django.db import models
 
 
 class Resume(models.Model):
+    job_titles = [
+            ["Программист", "Программист"],
+            ["Менеджер проекта", "Менеджер проекта"],
+            ["Инженер-программист", "Инженер-программист"],
+            ["Дизайнер UX/UI", "Дизайнер UX/UI"],
+            ["Data Scientist", "Data Scientist"],
+            ["Аналитик данных", "Аналитик данных"],
+            ["Тестировщик ПО", "Тестировщик ПО"],
+            ["DevOps-инженер", "DevOps-инженер"],
+            ["Frontend-разработчик", "Frontend-разработчик"],
+            ["Backend-разработчик", "Backend-разработчик"],
+            ["Fullstack-разработчик", "Fullstack-разработчик"],
+            ["Системный администратор", "Системный администратор"],
+            ["Специалист по кибербезопасности", "Специалист по кибербезопасности"],
+            ["Менеджер по продажам", "Менеджер по продажам"],
+            ["Маркетолог", "Маркетолог"],
+            ["Бухгалтер", "Бухгалтер"],
+            ["Юрист", "Юрист"],
+            ["HR-менеджер", "HR-менеджер"],
+            ["Руководитель проекта", "Руководитель проекта"],
+            ["Архитектор ПО", "Архитектор ПО"]
+        ]
+
     full_name = models.CharField(max_length=255, verbose_name='ФИО')
-    position = models.CharField(max_length=255, verbose_name='Должность')
+    position = models.CharField(max_length=255, choices=job_titles, verbose_name='Должность')
     salary = models.IntegerField(verbose_name='Зарплата', null=True, blank=True)
 
     EMPLOYMENT_TYPE_CHOICES = [
@@ -21,7 +44,7 @@ class Resume(models.Model):
 
 
 class Skill(models.Model):
-    name = models.CharField(max_length=255, unique=True, verbose_name='Навык')
+    name = models.CharField(max_length=255, verbose_name='Навык')
 
     def __str__(self):
         return self.name

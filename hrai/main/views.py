@@ -5,34 +5,40 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from .forms import *
+from .models import Resume, ResumeSkill, Skill
 
 
 def main(request):
     return render(request, 'main/html/main.html')
 
 
+
+
+
 def auth_home(request):
     job_titles = [
-        "Программист",
-        "Менеджер проекта",
-        "Инженер-программист",
-        "Дизайнер UX/UI",
-        "Data Scientist",
-        "Аналитик данных",
-        "Тестировщик ПО",
-        "DevOps-инженер",
-        "Frontend-разработчик",
-        "Backend-разработчик",
-        "Fullstack-разработчик",
-        "Системный администратор",
-        "Специалист по кибербезопасности",
-        "Менеджер по продажам",
-        "Маркетолог",
-        "Бухгалтер",
-        "Юрист",
-        "HR-менеджер",
-        "Руководитель проекта",
-        "Архитектор ПО"
+        [
+            ["Программист", "Программист"],
+            ["Менеджер проекта", "Менеджер проекта"],
+            ["Инженер-программист", "Инженер-программист"],
+            ["Дизайнер UX/UI", "Дизайнер UX/UI"],
+            ["Data Scientist", "Data Scientist"],
+            ["Аналитик данных", "Аналитик данных"],
+            ["Тестировщик ПО", "Тестировщик ПО"],
+            ["DevOps-инженер", "DevOps-инженер"],
+            ["Frontend-разработчик", "Frontend-разработчик"],
+            ["Backend-разработчик", "Backend-разработчик"],
+            ["Fullstack-разработчик", "Fullstack-разработчик"],
+            ["Системный администратор", "Системный администратор"],
+            ["Специалист по кибербезопасности", "Специалист по кибербезопасности"],
+            ["Менеджер по продажам", "Менеджер по продажам"],
+            ["Маркетолог", "Маркетолог"],
+            ["Бухгалтер", "Бухгалтер"],
+            ["Юрист", "Юрист"],
+            ["HR-менеджер", "HR-менеджер"],
+            ["Руководитель проекта", "Руководитель проекта"],
+            ["Архитектор ПО", "Архитектор ПО"]
+        ]
     ]  # Ваш список должностей
 
     skills_data = {
@@ -123,9 +129,28 @@ def auth_home(request):
         if form.is_valid():
             # Обработка данных формы (сохранение в базу данных)
             print(form.cleaned_data)
+            resume = Resume(
+                full_name=form.cleaned_data['full_name'],
+                position=form.cleaned_data['position'],
+                salary=form.cleaned_data['salary'],
+                employment_type=form.cleaned_data['employment_type']
+            )
+            resume.save()
+
+            for x in form.cleaned_data['skills']:
+                skill = Skill(
+                    name=x
+                )
+                skill.save()
+                res_skill = ResumeSkill(
+                    resume=resume,
+                    skill=skill
+                )
+                res_skill.save()
+
             return JsonResponse({'success': True})
         else:
-            return JsonResponse({'success': False, 'errors': form.errors})
+            return JsonResponse({'no success': False, 'errors': form.errors})
     else:
         form = ResumeForm()
         form.fields['position'].choices = [(title, title) for title in job_titles]
@@ -133,7 +158,7 @@ def auth_home(request):
         return render(request, 'main/html/auth_home.html', {
             'form': form,
             'job_titles': job_titles,  # Передаем данные в шаблон
-            'skills_data': json.dumps(skills_data),  # Преобразуем в JSON для использования в JavaScript
+            'skills_data': json.dumps(skills_data, ensure_ascii=False),  # Преобразуем в JSON для использования в JavaScript
         })
 
 

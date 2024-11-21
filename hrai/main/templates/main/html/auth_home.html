@@ -22,6 +22,7 @@
             {{ form.salary }}
             {{ form.employment_type }}
             </div>
+            <button type="submit">Создать</button>
         </form>
         <script>
             const jobTitleSelect = document.getElementById("jobTitle");
@@ -43,6 +44,7 @@
                 }
             });
         </script>
+        {% endblock %}
 <!--                <div class="resume-box">-->
 <!--                    <input type="text" id="fio" name="fio" placeholder="ФИО">-->
 <!--                    <select id="jobTitle" name="jobTitle">-->
@@ -183,6 +185,5 @@
 <!--                        }-->
 <!--                    });-->
 <!--                </script>-->
-                <button type="submit">Создать</button>
-        {% endblock %}
+
 
