@@ -29,6 +29,22 @@ header {
     position: relative;
 }
 
+.p_main {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 28px;
+    line-height: 1.5; /* Расстояние между строками */
+    color: #333; /* Темно-серый цвет текста */
+    margin-bottom: 1em; /* Отступ снизу */
+}
+h1 {
+    color: #6755F1;
+}
+.hrai {
+    color: #D3F843;
+    font-family: 'Kufam', sans-serif;
+    font-weight: 600;
+}
+
 .logo {
     font-family: 'Kufam', sans-serif;
     font-size: 2em;
@@ -86,7 +102,7 @@ nav {
     width: 100%;
 }
 
-.username, .logout-link {
+.username, .logout-link, .login-link {
     display: inline-block;
     margin-left: 10px;
     vertical-align: middle;  /* Vertically align with icon */
@@ -136,7 +152,7 @@ h2 {
 }
 
 
-button[type="submit"] { /* General button styles */
+.main-button { /* Новый класс для обеих кнопок */
     background-color: #e6950a;
     border: none;
     color: white;
@@ -147,9 +163,15 @@ button[type="submit"] { /* General button styles */
     font-size: 16px;
     margin: 10px 0;
     cursor: pointer;
-    border-radius: 5px; /* Slightly rounded corners */
+    border-radius: 5px;
     font-family: 'Montserrat', sans-serif;
+    transition: background-color 0.3s ease; /* Добавлена плавная смена цвета */
 }
+
+.main-button:hover { /* Эффект наведения */
+    background-color: #d88a0a; /* Более тёмный оттенок */
+}
+
 .register-button {
     background-color: #e6950a;
     border: none;
@@ -257,4 +279,46 @@ li ul {
 }
 resume-container {
     background-color: #E5950A;
+}
+.form-group {
+    display: flex;
+    flex-direction: column; /* Элементы расположены вертикально */
+    margin-bottom: 15px; /* Отступ между группами полей */
+}
+
+.form-group label {
+    margin-bottom: 5px;
+    font-weight: bold; /* Выделение жирным */
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif; /* Унифицируем шрифты */
+    font-size: 16px; /* Унифицируем размер шрифта */
+}
+
+.form-group input:focus { /* Стиль при фокусе */
+    outline: none; /* Убираем стандартный обводку */
+    border-color: #e6950a; /* Изменяем цвет границы */
+    box-shadow: 0 0 5px rgba(230, 149, 10, 0.5); /* Добавляем тень */
+}
+
+/*  Стиль для блока с формой  */
+.form-container { /* Новый класс, оберните им вашу форму <form> */
+    background-color: #fff; /* белый фон */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Тень для блока */
+    width: 350px; /* Фиксированная ширина, можно изменить */
+    margin: 20px auto; /* Центрирование */
+}
+
+/*  Стиль для текста под формой  */
+.form-container p {
+    text-align: center;
+    margin-top: 20px;
 }

@@ -25,5 +25,38 @@
 {% endblock %}
 
 {% block main_content %}
+    <h2>Создать вакансию</h2>
+    <form method="post" >
+        <div class="resume-box">
+            {% csrf_token %}
+            {{ form_vacancy.full_name }}
+            {{ form_vacancy.position }}
+            {{ form_vacancy.skills }}
+            {{ form_vacancy.salary }}
+            {{ form_vacancy.employment_type }}
+            {{ form_vacancy.work_experience }}
+        </div>
+        <button type="submit">Создать</button>
+    </form>
 
+    <script>
+        const jobTitleSelect = document.getElementById("jobTitle");
+        const skillsSelect = document.getElementById("skills");
+        const skillsData = JSON.parse('{{ skills_data|safe }}');
+
+        jobTitleSelect.addEventListener("change", function() {
+            const selectedJob = this.value;
+            skillsSelect.innerHTML = ''; // Очищаем список навыков
+
+            if (selectedJob in skillsData) {
+                const jobSkills = skillsData[selectedJob];
+                jobSkills.forEach(skill => {
+                    const option = document.createElement("option");
+                    option.value = skill;
+                    option.text = skill;
+                    skillsSelect.appendChild(option);
+                });
+            }
+        });
+    </script>
 {% endblock %}

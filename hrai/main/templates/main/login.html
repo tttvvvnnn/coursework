@@ -3,6 +3,7 @@
 
 
 {% block main_content %}
+<div class="form-container">
     <form method="post">
         {% csrf_token %}
         <div class="form-group">
@@ -13,14 +14,10 @@
             <label for="password">Пароль:</label>
             <input type="password" id="password" name="password" required>
         </div>
-        <button type="submit" class="btn">Войти</button>
+        <button type="submit" class="main-button">Войти</button>
     </form>
     <p>Нет аккаунта? <a href="{% url 'signup' %}">Зарегистрироваться</a></p>
 </div>
-<!--            {{ form2.as_table }}-->
-<!--        <button type="submit">Войти</button>-->
-<!--        <a href="{% url 'signup' %}" class="register-button">Зарегистрироваться</i></a>-->
-<!--    </form>-->
 {% endblock %}
 
 

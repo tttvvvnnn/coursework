@@ -184,7 +184,6 @@ class VacancyForm(forms.Form):
             temp.append((x, x))
         skills.extend(temp)
 
-    full_name = forms.CharField(max_length=255, label='ФИО', widget=forms.TextInput(attrs={'placeholder': 'ФИО'}))
     position = forms.ChoiceField(choices=job_titles, label='Должность',
                                  widget=forms.Select(attrs={'id': 'jobTitle'}))  # choices заполняются в представлении
     skills = forms.MultipleChoiceField(choices=skills, label='Навыки', widget=forms.SelectMultiple(

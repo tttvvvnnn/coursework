@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from .models import ResumeSkill, Resume  # замените на вашу модель
+from .models import *
 
 
 admin.site.register(Resume)
+admin.site.register(Vacancy)

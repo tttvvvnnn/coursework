@@ -4,11 +4,11 @@
 
 
 {% block main_content %}
-    <h1>Здравствуйте, я HRAI</h1>
-    <p>Ваш ИИ-помощник<br>в поиске сотрудников</p>
+    <h1>Здравствуйте, я <span class="hrai">HRAI</span></h1>
+    <p class="p_main">Ваш ИИ-помощник<br>в поиске сотрудников</p>
     {% if user.is_authenticated %}
-        <a href="{% url 'create_resume' %}" class="button">Начать работу <i class="fas fa-arrow-right"></i></a>
+        <a href="{% url 'create_resume' %}" class="main-button">Начать работу </a>
     {% else %}
-        <a href="{% url 'login' %}" class="button">Начать работу <i class="fas fa-arrow-right"></i></a>
+        <a href="{% url 'login' %}" class="main-button">Начать работу </a>
     {% endif %}
 {% endblock %}
