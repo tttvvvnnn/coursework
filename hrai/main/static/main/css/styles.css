@@ -322,3 +322,9 @@ resume-container {
     text-align: center;
     margin-top: 20px;
 }
+a.fill-div {
+    display: block;
+    height: 20%;
+    width: 20%;
+    text-decoration: none;
+}

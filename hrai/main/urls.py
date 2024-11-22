@@ -13,4 +13,5 @@ urlpatterns = [
     path('list_resume/', views.list_resume, name='list_resume'),
     path('create_vacancy/', views.create_vacancy, name='create_vacancy'),
     path('list_vacancy/', views.list_vacancy, name='list_vacancy'),
+    path('list_vacancy/current_vacancy/', views.current_vacancy, name='current_vacancy'),
 ]

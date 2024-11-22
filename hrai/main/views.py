@@ -308,4 +308,10 @@ def create_vacancy(request):
 
 
 def list_vacancy(request):
-    return render(request, 'main/list_vacancy.html')
+    vacances = Vacancy.objects.all()
+    return render(request, 'main/list_vacancy.html', {'vacances': vacances})
+
+
+def current_vacancy(request):
+    return render(request, 'main/current_vacancy.html')
+
