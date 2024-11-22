@@ -27,17 +27,18 @@
 {% block main_content %}
 <h1>Список Вакансий</h1>
 <div class="vacancy-container">
-    <ul>
+    <ul class="resume_vacancy_ul">
         {% for vacancy in vacances %}
-        <a href="current_vacancy" class="fill_div">
-            <li>
-                Должность: {{ vacancy.position }} <br> Тип занятости: {{ vacancy.employment_type }} <br>
-                Опыт работы: {{ vacancy.work_experience }} лет <br>
-                Требуемые навыки: {% for skill in vacancy.skills.all %}
-                "-" {{ skill.name }}
-                {% endfor %}
-            </li>
-        </a>
+            <a href="{% url 'current_vacancy' vacancy.id %}" class="fill_div">
+                <li class="resume_vacancy_il">
+                    Должность: {{ vacancy.position }} <br> Тип занятости: {{ vacancy.employment_type }} <br>
+                    Опыт работы: {{ vacancy.work_experience }} лет <br>
+                    Требуемые навыки: <br>
+                    {% for skill in vacancy.skills.all %}
+                        - {{ skill.skill.name }}<br>  <!-- Обратите внимание на skill.skill.name -->
+                    {% endfor %}
+                </li>
+            </a>
         {% endfor %}
     </ul>
 </div>

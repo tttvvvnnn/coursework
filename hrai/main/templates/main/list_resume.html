@@ -27,14 +27,14 @@
 {% block main_content %}
 <h1>Список резюме</h1>
 <div class="resume-container">
-    <ul>
+    <ul class="resume_vacancy_ul">
         {% for resume in resumes %}
-        <li>
-            ФИО: -{{ resume.full_name }} <br> Должность: {{ resume.position }} <br> Тип занятости: {{ resume.employment_type }} <br>
+        <li class="resume_vacancy_il">
+            ФИО: {{ resume.full_name }} <br> Должность: {{ resume.position }} <br> Тип занятости: {{ resume.employment_type }} <br>
             Опыт работы: {{ resume.work_experience }} лет <br>
-            {% for skill in resume.skills.all %}
-            "-" {{ skill.name }}
-            {% endfor %}
+                {% for skill in resume.skills.all %}
+                    - {{ skill.skill.name }}<br>  <!-- Обратите внимание на skill.skill.name -->
+                {% endfor %}
         </li>
         {% endfor %}
     </ul>

@@ -3,7 +3,7 @@ import json
 from django.contrib import messages
 from django.forms import formset_factory
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate
 from .forms import *
 from .models import *
@@ -312,6 +312,51 @@ def list_vacancy(request):
     return render(request, 'main/list_vacancy.html', {'vacances': vacances})
 
 
-def current_vacancy(request):
-    return render(request, 'main/current_vacancy.html')
+def calculate_match_score(vacancy, resume):
+    """Вычисляет оценку соответствия резюме вакансии."""
 
+    # a - должность
+    a = 1.0 if vacancy.position == resume.position else 0.2
+
+    # b - навыки
+    vacancy_skills = set(vacancy.skills.values_list('skill__name',
+                                                    flat=True))  # Используем двойной андерскор для доступа к полю name модели Skill
+    resume_skills = set(resume.skills.values_list('skill__name',
+                                                  flat=True))  # Используем двойной андерскор для доступа к полю name модели Skill
+    common_skills = vacancy_skills.intersection(resume_skills)
+    b = len(common_skills)
+
+    # c - зарплата
+    c = round((1.0 if resume.salary is None or vacancy.salary is None or vacancy.salary == resume.salary else min(
+        vacancy.salary, resume.salary) / max(vacancy.salary,
+                                             resume.salary) if vacancy.salary and resume.salary else 1.0), 2)
+
+    # d - тип занятости
+    d = round((1.0 if vacancy.employment_type == resume.employment_type else 0.2), 2)
+
+    # e - опыт работы
+    e = round((
+        1.0 if resume.work_experience is None or vacancy.work_experience is None or vacancy.work_experience == resume.work_experience else resume.work_experience / vacancy.work_experience),
+        2)
+    score = a * b * c * d * e
+    print(round(score, 2), a, b, c, d, e)
+    return round(score, 2)
+
+
+def current_vacancy(request, vacancy_id):
+    vacancy = get_object_or_404(Vacancy, pk=vacancy_id)
+    resumes = Resume.objects.all()
+    matched_resumes = []
+
+    for resume in resumes:
+        score = calculate_match_score(vacancy, resume)
+        if (score != 0):
+            matched_resumes.append((resume, score))
+
+    # Сортируем резюме по оценке соответствия в порядке убывания
+    matched_resumes.sort(key=lambda x: x[1], reverse=True)
+
+    return render(request, 'main/current_vacancy.html', {
+        'vacancy': vacancy,
+        'matched_resumes': matched_resumes,
+    })

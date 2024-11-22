@@ -25,6 +25,39 @@
 {% endblock %}
 
 {% block main_content %}
-<h1>Список Вакансий</h1>
+    <div class="vacancy-details">
+    <h1>{{ vacancy.position }}</h1>
+    <p>Зарплата: {{ vacancy.salary }}</p>
+    <p>Тип занятости: {{ vacancy.employment_type }}</p>
+    <p>Опыт работы: {{ vacancy.work_experience }} лет</p>
+    <p>Требуемые навыки: <br>
+        <ul class="skills-list">  <!-- Используем тег ul для списка -->
+            {% for skill in vacancy.skills.all %}
+                <li>{{ skill.skill.name }}</li>
+            {% endfor %}
+        </ul>
 
+    </div>
+
+
+    <h2>Подходящие резюме:</h2>
+    {% if matched_resumes %}
+        <ul>
+            {% for resume, score in matched_resumes %}
+                <li>
+                    <strong>{{ resume.full_name }}</strong> (Оценка соответствия: {{ score|floatformat:2 }})<br>
+                    Должность: {{ resume.position }}<br>
+                    Зарплата: {{ resume.salary }}<br>
+                    Тип занятости: {{ resume.employment_type }}<br>
+                    Опыт работы: {{ resume.work_experience }} лет<br>
+                    Навыки: <br>
+                        {% for skill in resume.skills.all %}
+                            - {{ skill.skill.name }}<br>  <!-- Обратите внимание на skill.skill.name -->
+                        {% endfor %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>К сожалению, подходящих резюме не найдено.</p>
+    {% endif %}
 {% endblock %}
