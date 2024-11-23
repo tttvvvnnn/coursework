@@ -40,7 +40,7 @@ h1 {
     color: #6755F1;
 }
 .hrai {
-    color: #D3F843;
+    color: #6755F1;
     font-family: 'Kufam', sans-serif;
     font-weight: 600;
 }
@@ -48,7 +48,7 @@ h1 {
 .logo {
     font-family: 'Kufam', sans-serif;
     font-size: 2em;
-    color: #D3F843;
+    color: #6755F1;
     text-decoration: none;
     padding-top: 8px;
     font-weight: 600;
@@ -345,22 +345,45 @@ a.fill-div {
     text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8); /* Тень текста для контраста */
 }
 
-.vacancy-details p {
-    margin-bottom: 10px;
-    line-height: 1.8;
-    color: #444;
+.vacancy-container {
+    display: flex; /* Используем flexbox */
+    justify-content: space-between; /* Расстояние между блоками */
+    gap: 30px; /* Зазор между блоками */
+    margin-top: 20px; /* Отступ сверху */
 }
 
-.vacancy-details strong{
-    font-weight: 600;
+.vacancy-details, .resumes-list {
+    flex: 1; /* Занимают одинаковую ширину */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
 }
 
-.vacancy-details ul li { /* Селектор для всех li внутри .vacancy-details */
-  padding: 5px 10px;
-  margin-bottom: 5px;
-  border-bottom: 1px solid #eee;
+.resumes-list ul {
+    list-style: none;
+    padding: 0;
 }
 
-.vacancy-details ul li:last-child {
-  border-bottom: none;
+.resumes-list li {
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+}
+
+.resumes-list li:last-child {
+    border-bottom: none;
+}
+
+
+.skills-list li {
+    margin-bottom: 5px;
+}
+
+.resume-skills-list{
+    list-style: none;
+    padding-left: 20px;
+}
+
+.resume-skills-list li{
+    margin-bottom: 3px;
 }
